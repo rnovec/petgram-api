@@ -19,7 +19,7 @@ from django.conf.urls import url, include
 
 # REST FRAMEWORK
 from rest_framework import routers
-from .views import UserViewSet
+from users.views import UserViewSet, ProfileViewSet
 
 # SIMPLE JWT
 from rest_framework_simplejwt.views import (
@@ -29,8 +29,9 @@ from rest_framework_simplejwt.views import (
 )
 
 # api router
-router = routers.DefaultRouter()
+router = routers.DefaultRouter(trailing_slash=False)
 router.register(r"users", UserViewSet)
+router.register(r"profiles", ProfileViewSet)
 
 # jwt urls
 # http://domain.com/api/v1/token/...
