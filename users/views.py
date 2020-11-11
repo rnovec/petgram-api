@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser
 
 from .serializers import UserSerializer, ProfileSerializer
@@ -13,7 +15,13 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = []
+
+    @action(detail=True, methods=['get'], name='Get User Info')
+    def profile(self, request, pk=None):
+        """Get user profile info."""
+        profile = get_object_or_404(Profile, user=pk)
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data)
 
 class ProfileViewSet(viewsets.ModelViewSet):
     """
@@ -21,6 +29,5 @@ class ProfileViewSet(viewsets.ModelViewSet):
     """
     queryset = Profile.objects.all().order_by('-created')
     serializer_class = ProfileSerializer
-    permission_classes = []
 
 

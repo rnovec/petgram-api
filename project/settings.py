@@ -43,6 +43,7 @@ LOCAL_APPS = [
     # REST FRAMEWORK
     'rest_framework',
     'rest_registration',
+    'corsheaders',
     'users',
     'petgram',
     'storages',
@@ -53,12 +54,16 @@ INSTALLED_APPS = DJANDO_APPS + LOCAL_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 # --------------------------------------------------------------
 
@@ -93,13 +98,14 @@ JWT_AUTH = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": datetime.timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": datetime.timedelta(hours=1),
-    "USER_ID_FIELD": "enrollment",
-    'USER_ID_CLAIM': 'enrollment',
+    "USER_ID_FIELD": "id",
+    'USER_ID_CLAIM': 'id',
 }
 
 # ---------------------------------------------------------------------
 
 ROOT_URLCONF = 'project.urls'
+APPEND_SLASH = False
 
 TEMPLATES = [
     {
@@ -166,7 +172,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'project/static'),
+]
 
 # AWS Simple Storage Service (S3)
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -179,11 +187,16 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 
 AWS_STATIC_LOCATION = 'static'
-STATICFILES_STORAGE = 'project.storage_backends.StaticStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
+STATIC_ROOT = STATIC_URL
+
+AWS_DEFAULT_ACL = ''
 
 AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
 DEFAULT_FILE_STORAGE = 'project.storage_backends.PublicMediaStorage'
 
 AWS_PRIVATE_MEDIA_LOCATION = 'media/private'
 PRIVATE_FILE_STORAGE = 'project.storage_backends.PrivateMediaStorage'
+
+

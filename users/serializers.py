@@ -19,5 +19,5 @@ class UserSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        deep = 1
+        depth = 1
         exclude = []
