@@ -6,7 +6,7 @@ from .models import Post, Comment
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        depth = 1
+        depth = 2
         exclude = []
 
 class CommentSerializer(serializers.ModelSerializer):
