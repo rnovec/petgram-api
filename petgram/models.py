@@ -3,13 +3,15 @@ from users.models import User
 from uuid import uuid4
 from project.storage_backends import PrivateMediaStorage
 
+
 class Post(models.Model):
     """Post model."""
     uuid = models.UUIDField(default=uuid4, primary_key=True, unique=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     description = models.TextField(max_length=255)
-    photo = models.ImageField(storage=PrivateMediaStorage(), blank=True, null=True)
+    photo = models.ImageField(
+        storage=PrivateMediaStorage(), blank=True, null=True)
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -17,6 +19,7 @@ class Post(models.Model):
     def __str__(self):
         """Return description and username."""
         return self.description
+
 
 class Comment(models.Model):
     """Comment model."""

@@ -8,6 +8,8 @@ from .models import User
 from .serializers import UserSerializer
 
 # ViewSets define the view behavior.
+
+
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -15,4 +17,3 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
     parser_classes = (MultiPartParser, FormParser)
-

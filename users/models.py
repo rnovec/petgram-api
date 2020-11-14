@@ -8,6 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 from uuid import uuid4
 from .managers import UserManager
 from project.storage_backends import PrivateMediaStorage
+
+
 class User(AbstractBaseUser, PermissionsMixin):
 
     # account fields
@@ -17,7 +19,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     fullname = models.CharField(max_length=100, blank=True)
 
     # profile fields
-    picture = models.ImageField(storage=PrivateMediaStorage(), blank=True, null=True)
+    picture = models.ImageField(
+        storage=PrivateMediaStorage(), blank=True, null=True)
     address = models.TextField(blank=True)
     phone_number = models.CharField(max_length=20, blank=True)
 

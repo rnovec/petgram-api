@@ -9,6 +9,7 @@ from .serializers import PostSerializer, CommentSerializer
 from .models import Post, Comment
 from users.models import User
 
+
 class PostViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows Posts to be viewed or edited.
@@ -27,7 +28,8 @@ class PostViewSet(viewsets.ModelViewSet):
         post = Post.objects.create(user=user, description=description)
         post.photo.save(f.name, f, save=True)
         serializer = PostSerializer(post)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)    
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
 
 class CommentViewSet(viewsets.ModelViewSet):
     """

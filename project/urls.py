@@ -58,6 +58,5 @@ api_urlpatterns = [
 # http://domain.com/
 urlpatterns = [
     # path('', admin.site.urls),                 # admin site urls
-    path('api/v1/', include(api_urlpatterns)), # api v1.0
+    path('api/v1/', include(api_urlpatterns)),  # api v1.0
 ]
-
