@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from .models import Post, Comment
+from .models import Post, Comment, Like
 
 # Serializers define the API representation.
 
@@ -8,7 +8,7 @@ from .models import Post, Comment
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        depth = 2
+        depth = 1
         exclude = []
 
 
@@ -16,4 +16,10 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         depth = 1
+        exclude = []
+
+
+class LikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
         exclude = []

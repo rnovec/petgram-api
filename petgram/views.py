@@ -5,9 +5,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import FileUploadParser, MultiPartParser, FormParser
-from .serializers import PostSerializer, CommentSerializer
-from .models import Post, Comment
 from users.models import User
+from .models import Post, Comment, Like
+from .serializers import PostSerializer, CommentSerializer, LikeSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -49,6 +49,19 @@ class PostViewSet(viewsets.ModelViewSet):
         instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    @action(detail=True, methods=['get'])
+    def comments(self, request, pk=None):
+
+        post_comments = Comment.objects.filter(post=pk).order_by('created')
+
+        page = self.paginate_queryset(post_comments)
+        if page is not None:
+            serializer = CommentSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = CommentSerializer(post_comments, many=True)
+        return Response(serializer.data)
+
 
 class CommentViewSet(viewsets.ModelViewSet):
     """
@@ -56,3 +69,29 @@ class CommentViewSet(viewsets.ModelViewSet):
     """
     queryset = Comment.objects.all().order_by('-created')
     serializer_class = CommentSerializer
+
+    def create(self, request, *args, **kwargs):
+        """
+        Create a Comment and set user owner
+        """
+        # obtain instances
+        user_id = request.data['user_id']
+        post_id = request.data['post_id']
+        message = request.data['message']
+        user = get_object_or_404(User, id=user_id)
+        post = get_object_or_404(Post, uuid=post_id)
+
+        # create user's comment
+        comment = Comment.objects.create(user=user, post=post, message=message)
+
+        # prepare response
+        serializer = self.get_serializer(comment)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class LikeViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows Likes to be viewed or edited.
+    """
+    queryset = Like.objects.all().order_by('-created')
+    serializer_class = LikeSerializer

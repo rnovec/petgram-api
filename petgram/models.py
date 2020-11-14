@@ -36,3 +36,17 @@ class Comment(models.Model):
     def __str__(self):
         """Return title and username."""
         return '{} by @{}'.format(self.message, self.user.username)
+
+
+class Like(models.Model):
+    """Like model."""
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        """Return title"""
+        return 'Like {} by @{}'.format(self.id, self.user.username)
