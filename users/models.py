@@ -10,7 +10,7 @@ from .managers import UserManager
 from project.storage_backends import PrivateMediaStorage
 class User(AbstractBaseUser, PermissionsMixin):
 
-    # accounts fields
+    # account fields
     uuid = models.UUIDField(default=uuid4, primary_key=True, unique=True)
     username = models.CharField(max_length=10, unique=True)
     email = models.EmailField(unique=True)
