@@ -4,8 +4,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.exceptions import ParseError
-from rest_framework.parsers import FileUploadParser
-
+from rest_framework.parsers import FileUploadParser, MultiPartParser, FormParser
 from .serializers import PostSerializer, CommentSerializer
 from .models import Post, Comment
 from users.models import User
@@ -16,6 +15,7 @@ class PostViewSet(viewsets.ModelViewSet):
     """
     queryset = Post.objects.all().order_by('-created')
     serializer_class = PostSerializer
+    parser_classes = (MultiPartParser, FormParser)
 
     def create(self, request, *args, **kwargs):
         pk = request.data['user_id']
