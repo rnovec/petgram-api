@@ -1,0 +1,2549 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/v1/users:
+    get:
+      operationId: listUsers
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        username:
+                          type: string
+                          maxLength: 10
+                        email:
+                          type: string
+                          format: email
+                          maxLength: 254
+                        fullname:
+                          type: string
+                          maxLength: 100
+                        picture:
+                          type: string
+                          format: binary
+                          nullable: true
+                        address:
+                          type: string
+                        phone_number:
+                          type: string
+                          maxLength: 20
+                        date_joined:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                      required:
+                      - username
+                      - email
+          description: ''
+    post:
+      operationId: createUser
+      description: API endpoint that allows users to be viewed or edited.
+      parameters: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema: &id001
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                username:
+                  type: string
+                  maxLength: 10
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                fullname:
+                  type: string
+                  maxLength: 100
+                picture:
+                  type: string
+                  format: binary
+                  nullable: true
+                address:
+                  type: string
+                phone_number:
+                  type: string
+                  maxLength: 20
+              required:
+              - username
+              - email
+          application/x-www-form-urlencoded:
+            schema: *id001
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  username:
+                    type: string
+                    maxLength: 10
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  fullname:
+                    type: string
+                    maxLength: 100
+                  picture:
+                    type: string
+                    format: binary
+                    nullable: true
+                  address:
+                    type: string
+                  phone_number:
+                    type: string
+                    maxLength: 20
+                  date_joined:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - username
+                - email
+          description: ''
+  /api/v1/users/{id}:
+    get:
+      operationId: retrieveUser
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this user.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  username:
+                    type: string
+                    maxLength: 10
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  fullname:
+                    type: string
+                    maxLength: 100
+                  picture:
+                    type: string
+                    format: binary
+                    nullable: true
+                  address:
+                    type: string
+                  phone_number:
+                    type: string
+                    maxLength: 20
+                  date_joined:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - username
+                - email
+          description: ''
+    put:
+      operationId: updateUser
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this user.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema: &id002
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                username:
+                  type: string
+                  maxLength: 10
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                fullname:
+                  type: string
+                  maxLength: 100
+                picture:
+                  type: string
+                  format: binary
+                  nullable: true
+                address:
+                  type: string
+                phone_number:
+                  type: string
+                  maxLength: 20
+              required:
+              - username
+              - email
+          application/x-www-form-urlencoded:
+            schema: *id002
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  username:
+                    type: string
+                    maxLength: 10
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  fullname:
+                    type: string
+                    maxLength: 100
+                  picture:
+                    type: string
+                    format: binary
+                    nullable: true
+                  address:
+                    type: string
+                  phone_number:
+                    type: string
+                    maxLength: 20
+                  date_joined:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - username
+                - email
+          description: ''
+    patch:
+      operationId: partial_updateUser
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this user.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema: &id003
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                username:
+                  type: string
+                  maxLength: 10
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                fullname:
+                  type: string
+                  maxLength: 100
+                picture:
+                  type: string
+                  format: binary
+                  nullable: true
+                address:
+                  type: string
+                phone_number:
+                  type: string
+                  maxLength: 20
+          application/x-www-form-urlencoded:
+            schema: *id003
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  username:
+                    type: string
+                    maxLength: 10
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  fullname:
+                    type: string
+                    maxLength: 100
+                  picture:
+                    type: string
+                    format: binary
+                    nullable: true
+                  address:
+                    type: string
+                  phone_number:
+                    type: string
+                    maxLength: 20
+                  date_joined:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - username
+                - email
+          description: ''
+    delete:
+      operationId: destroyUser
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this user.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/v1/posts:
+    get:
+      operationId: listPosts
+      description: API endpoint that allows Posts to be viewed or edited.
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        uuid:
+                          type: string
+                          format: uuid
+                        description:
+                          type: string
+                          maxLength: 255
+                        photo:
+                          type: string
+                          format: binary
+                          nullable: true
+                        created:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                        modified:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                        user:
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            password:
+                              type: string
+                              maxLength: 128
+                            last_login:
+                              type: string
+                              format: date-time
+                              nullable: true
+                            is_superuser:
+                              type: boolean
+                              description: Designates that this user has all permissions
+                                without explicitly assigning them.
+                            username:
+                              type: string
+                              maxLength: 10
+                            email:
+                              type: string
+                              format: email
+                              maxLength: 254
+                            fullname:
+                              type: string
+                              maxLength: 100
+                            picture:
+                              type: string
+                              format: binary
+                              nullable: true
+                            address:
+                              type: string
+                            phone_number:
+                              type: string
+                              maxLength: 20
+                            date_joined:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                            is_staff:
+                              type: boolean
+                            is_active:
+                              type: boolean
+                            groups:
+                              type: array
+                              items:
+                                properties:
+                                  id:
+                                    type: integer
+                                    readOnly: true
+                                  name:
+                                    type: string
+                                    maxLength: 150
+                                  permissions:
+                                    type: array
+                                    items:
+                                      type: integer
+                                required:
+                                - name
+                              readOnly: true
+                            user_permissions:
+                              type: array
+                              items:
+                                properties:
+                                  id:
+                                    type: integer
+                                    readOnly: true
+                                  name:
+                                    type: string
+                                    maxLength: 255
+                                  codename:
+                                    type: string
+                                    maxLength: 100
+                                  content_type:
+                                    type: integer
+                                required:
+                                - name
+                                - codename
+                                - content_type
+                              readOnly: true
+                          required:
+                          - password
+                          - username
+                          - email
+                          type: object
+                          readOnly: true
+                      required:
+                      - description
+          description: ''
+    post:
+      operationId: createPost
+      description: API endpoint that allows Posts to be viewed or edited.
+      parameters: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema: &id004
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                description:
+                  type: string
+                  maxLength: 255
+                photo:
+                  type: string
+                  format: binary
+                  nullable: true
+              required:
+              - description
+          application/x-www-form-urlencoded:
+            schema: *id004
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  uuid:
+                    type: string
+                    format: uuid
+                  description:
+                    type: string
+                    maxLength: 255
+                  photo:
+                    type: string
+                    format: binary
+                    nullable: true
+                  created:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  modified:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      password:
+                        type: string
+                        maxLength: 128
+                      last_login:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      is_superuser:
+                        type: boolean
+                        description: Designates that this user has all permissions
+                          without explicitly assigning them.
+                      username:
+                        type: string
+                        maxLength: 10
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 254
+                      fullname:
+                        type: string
+                        maxLength: 100
+                      picture:
+                        type: string
+                        format: binary
+                        nullable: true
+                      address:
+                        type: string
+                      phone_number:
+                        type: string
+                        maxLength: 20
+                      date_joined:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      is_staff:
+                        type: boolean
+                      is_active:
+                        type: boolean
+                      groups:
+                        type: array
+                        items:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            name:
+                              type: string
+                              maxLength: 150
+                            permissions:
+                              type: array
+                              items:
+                                type: integer
+                          required:
+                          - name
+                        readOnly: true
+                      user_permissions:
+                        type: array
+                        items:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            name:
+                              type: string
+                              maxLength: 255
+                            codename:
+                              type: string
+                              maxLength: 100
+                            content_type:
+                              type: integer
+                          required:
+                          - name
+                          - codename
+                          - content_type
+                        readOnly: true
+                    required:
+                    - password
+                    - username
+                    - email
+                    type: object
+                    readOnly: true
+                required:
+                - description
+          description: ''
+  /api/v1/posts/{uuid}:
+    get:
+      operationId: retrievePost
+      description: API endpoint that allows Posts to be viewed or edited.
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        description: A UUID string identifying this post.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  uuid:
+                    type: string
+                    format: uuid
+                  description:
+                    type: string
+                    maxLength: 255
+                  photo:
+                    type: string
+                    format: binary
+                    nullable: true
+                  created:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  modified:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      password:
+                        type: string
+                        maxLength: 128
+                      last_login:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      is_superuser:
+                        type: boolean
+                        description: Designates that this user has all permissions
+                          without explicitly assigning them.
+                      username:
+                        type: string
+                        maxLength: 10
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 254
+                      fullname:
+                        type: string
+                        maxLength: 100
+                      picture:
+                        type: string
+                        format: binary
+                        nullable: true
+                      address:
+                        type: string
+                      phone_number:
+                        type: string
+                        maxLength: 20
+                      date_joined:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      is_staff:
+                        type: boolean
+                      is_active:
+                        type: boolean
+                      groups:
+                        type: array
+                        items:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            name:
+                              type: string
+                              maxLength: 150
+                            permissions:
+                              type: array
+                              items:
+                                type: integer
+                          required:
+                          - name
+                        readOnly: true
+                      user_permissions:
+                        type: array
+                        items:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            name:
+                              type: string
+                              maxLength: 255
+                            codename:
+                              type: string
+                              maxLength: 100
+                            content_type:
+                              type: integer
+                          required:
+                          - name
+                          - codename
+                          - content_type
+                        readOnly: true
+                    required:
+                    - password
+                    - username
+                    - email
+                    type: object
+                    readOnly: true
+                required:
+                - description
+          description: ''
+    put:
+      operationId: updatePost
+      description: API endpoint that allows Posts to be viewed or edited.
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        description: A UUID string identifying this post.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema: &id005
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                description:
+                  type: string
+                  maxLength: 255
+                photo:
+                  type: string
+                  format: binary
+                  nullable: true
+              required:
+              - description
+          application/x-www-form-urlencoded:
+            schema: *id005
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  uuid:
+                    type: string
+                    format: uuid
+                  description:
+                    type: string
+                    maxLength: 255
+                  photo:
+                    type: string
+                    format: binary
+                    nullable: true
+                  created:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  modified:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      password:
+                        type: string
+                        maxLength: 128
+                      last_login:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      is_superuser:
+                        type: boolean
+                        description: Designates that this user has all permissions
+                          without explicitly assigning them.
+                      username:
+                        type: string
+                        maxLength: 10
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 254
+                      fullname:
+                        type: string
+                        maxLength: 100
+                      picture:
+                        type: string
+                        format: binary
+                        nullable: true
+                      address:
+                        type: string
+                      phone_number:
+                        type: string
+                        maxLength: 20
+                      date_joined:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      is_staff:
+                        type: boolean
+                      is_active:
+                        type: boolean
+                      groups:
+                        type: array
+                        items:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            name:
+                              type: string
+                              maxLength: 150
+                            permissions:
+                              type: array
+                              items:
+                                type: integer
+                          required:
+                          - name
+                        readOnly: true
+                      user_permissions:
+                        type: array
+                        items:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            name:
+                              type: string
+                              maxLength: 255
+                            codename:
+                              type: string
+                              maxLength: 100
+                            content_type:
+                              type: integer
+                          required:
+                          - name
+                          - codename
+                          - content_type
+                        readOnly: true
+                    required:
+                    - password
+                    - username
+                    - email
+                    type: object
+                    readOnly: true
+                required:
+                - description
+          description: ''
+    patch:
+      operationId: partial_updatePost
+      description: API endpoint that allows Posts to be viewed or edited.
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        description: A UUID string identifying this post.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema: &id006
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                description:
+                  type: string
+                  maxLength: 255
+                photo:
+                  type: string
+                  format: binary
+                  nullable: true
+          application/x-www-form-urlencoded:
+            schema: *id006
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  uuid:
+                    type: string
+                    format: uuid
+                  description:
+                    type: string
+                    maxLength: 255
+                  photo:
+                    type: string
+                    format: binary
+                    nullable: true
+                  created:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  modified:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      password:
+                        type: string
+                        maxLength: 128
+                      last_login:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      is_superuser:
+                        type: boolean
+                        description: Designates that this user has all permissions
+                          without explicitly assigning them.
+                      username:
+                        type: string
+                        maxLength: 10
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 254
+                      fullname:
+                        type: string
+                        maxLength: 100
+                      picture:
+                        type: string
+                        format: binary
+                        nullable: true
+                      address:
+                        type: string
+                      phone_number:
+                        type: string
+                        maxLength: 20
+                      date_joined:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      is_staff:
+                        type: boolean
+                      is_active:
+                        type: boolean
+                      groups:
+                        type: array
+                        items:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            name:
+                              type: string
+                              maxLength: 150
+                            permissions:
+                              type: array
+                              items:
+                                type: integer
+                          required:
+                          - name
+                        readOnly: true
+                      user_permissions:
+                        type: array
+                        items:
+                          properties:
+                            id:
+                              type: integer
+                              readOnly: true
+                            name:
+                              type: string
+                              maxLength: 255
+                            codename:
+                              type: string
+                              maxLength: 100
+                            content_type:
+                              type: integer
+                          required:
+                          - name
+                          - codename
+                          - content_type
+                        readOnly: true
+                    required:
+                    - password
+                    - username
+                    - email
+                    type: object
+                    readOnly: true
+                required:
+                - description
+          description: ''
+    delete:
+      operationId: destroyPost
+      description: API endpoint that allows Posts to be viewed or edited.
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        description: A UUID string identifying this post.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/v1/comments:
+    get:
+      operationId: listComments
+      description: API endpoint that allows Comments to be viewed or edited.
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        uuid:
+                          type: string
+                          format: uuid
+                        message:
+                          type: string
+                          maxLength: 255
+                        created:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                        modified:
+                          type: string
+                          format: date-time
+                          readOnly: true
+                        user:
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                            password:
+                              type: string
+                              maxLength: 128
+                            last_login:
+                              type: string
+                              format: date-time
+                              nullable: true
+                            is_superuser:
+                              type: boolean
+                              description: Designates that this user has all permissions
+                                without explicitly assigning them.
+                            username:
+                              type: string
+                              maxLength: 10
+                            email:
+                              type: string
+                              format: email
+                              maxLength: 254
+                            fullname:
+                              type: string
+                              maxLength: 100
+                            picture:
+                              type: string
+                              format: binary
+                              nullable: true
+                            address:
+                              type: string
+                            phone_number:
+                              type: string
+                              maxLength: 20
+                            date_joined:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                            is_staff:
+                              type: boolean
+                            is_active:
+                              type: boolean
+                            groups:
+                              type: array
+                              items:
+                                type: integer
+                              description: The groups this user belongs to. A user
+                                will get all permissions granted to each of their
+                                groups.
+                            user_permissions:
+                              type: array
+                              items:
+                                type: integer
+                              description: Specific permissions for this user.
+                          required:
+                          - password
+                          - username
+                          - email
+                          type: object
+                          readOnly: true
+                        post:
+                          properties:
+                            uuid:
+                              type: string
+                              format: uuid
+                            description:
+                              type: string
+                              maxLength: 255
+                            photo:
+                              type: string
+                              format: binary
+                              nullable: true
+                            created:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                            modified:
+                              type: string
+                              format: date-time
+                              readOnly: true
+                            user:
+                              type: string
+                          required:
+                          - description
+                          - user
+                          type: object
+                          readOnly: true
+          description: ''
+    post:
+      operationId: createComment
+      description: API endpoint that allows Comments to be viewed or edited.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                message:
+                  type: string
+                  maxLength: 255
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  uuid:
+                    type: string
+                    format: uuid
+                  message:
+                    type: string
+                    maxLength: 255
+                  created:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  modified:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      password:
+                        type: string
+                        maxLength: 128
+                      last_login:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      is_superuser:
+                        type: boolean
+                        description: Designates that this user has all permissions
+                          without explicitly assigning them.
+                      username:
+                        type: string
+                        maxLength: 10
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 254
+                      fullname:
+                        type: string
+                        maxLength: 100
+                      picture:
+                        type: string
+                        format: binary
+                        nullable: true
+                      address:
+                        type: string
+                      phone_number:
+                        type: string
+                        maxLength: 20
+                      date_joined:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      is_staff:
+                        type: boolean
+                      is_active:
+                        type: boolean
+                      groups:
+                        type: array
+                        items:
+                          type: integer
+                        description: The groups this user belongs to. A user will
+                          get all permissions granted to each of their groups.
+                      user_permissions:
+                        type: array
+                        items:
+                          type: integer
+                        description: Specific permissions for this user.
+                    required:
+                    - password
+                    - username
+                    - email
+                    type: object
+                    readOnly: true
+                  post:
+                    properties:
+                      uuid:
+                        type: string
+                        format: uuid
+                      description:
+                        type: string
+                        maxLength: 255
+                      photo:
+                        type: string
+                        format: binary
+                        nullable: true
+                      created:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      modified:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      user:
+                        type: string
+                    required:
+                    - description
+                    - user
+                    type: object
+                    readOnly: true
+          description: ''
+  /api/v1/comments/{uuid}:
+    get:
+      operationId: retrieveComment
+      description: API endpoint that allows Comments to be viewed or edited.
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        description: A UUID string identifying this comment.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  uuid:
+                    type: string
+                    format: uuid
+                  message:
+                    type: string
+                    maxLength: 255
+                  created:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  modified:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      password:
+                        type: string
+                        maxLength: 128
+                      last_login:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      is_superuser:
+                        type: boolean
+                        description: Designates that this user has all permissions
+                          without explicitly assigning them.
+                      username:
+                        type: string
+                        maxLength: 10
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 254
+                      fullname:
+                        type: string
+                        maxLength: 100
+                      picture:
+                        type: string
+                        format: binary
+                        nullable: true
+                      address:
+                        type: string
+                      phone_number:
+                        type: string
+                        maxLength: 20
+                      date_joined:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      is_staff:
+                        type: boolean
+                      is_active:
+                        type: boolean
+                      groups:
+                        type: array
+                        items:
+                          type: integer
+                        description: The groups this user belongs to. A user will
+                          get all permissions granted to each of their groups.
+                      user_permissions:
+                        type: array
+                        items:
+                          type: integer
+                        description: Specific permissions for this user.
+                    required:
+                    - password
+                    - username
+                    - email
+                    type: object
+                    readOnly: true
+                  post:
+                    properties:
+                      uuid:
+                        type: string
+                        format: uuid
+                      description:
+                        type: string
+                        maxLength: 255
+                      photo:
+                        type: string
+                        format: binary
+                        nullable: true
+                      created:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      modified:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      user:
+                        type: string
+                    required:
+                    - description
+                    - user
+                    type: object
+                    readOnly: true
+          description: ''
+    put:
+      operationId: updateComment
+      description: API endpoint that allows Comments to be viewed or edited.
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        description: A UUID string identifying this comment.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                message:
+                  type: string
+                  maxLength: 255
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  uuid:
+                    type: string
+                    format: uuid
+                  message:
+                    type: string
+                    maxLength: 255
+                  created:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  modified:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      password:
+                        type: string
+                        maxLength: 128
+                      last_login:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      is_superuser:
+                        type: boolean
+                        description: Designates that this user has all permissions
+                          without explicitly assigning them.
+                      username:
+                        type: string
+                        maxLength: 10
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 254
+                      fullname:
+                        type: string
+                        maxLength: 100
+                      picture:
+                        type: string
+                        format: binary
+                        nullable: true
+                      address:
+                        type: string
+                      phone_number:
+                        type: string
+                        maxLength: 20
+                      date_joined:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      is_staff:
+                        type: boolean
+                      is_active:
+                        type: boolean
+                      groups:
+                        type: array
+                        items:
+                          type: integer
+                        description: The groups this user belongs to. A user will
+                          get all permissions granted to each of their groups.
+                      user_permissions:
+                        type: array
+                        items:
+                          type: integer
+                        description: Specific permissions for this user.
+                    required:
+                    - password
+                    - username
+                    - email
+                    type: object
+                    readOnly: true
+                  post:
+                    properties:
+                      uuid:
+                        type: string
+                        format: uuid
+                      description:
+                        type: string
+                        maxLength: 255
+                      photo:
+                        type: string
+                        format: binary
+                        nullable: true
+                      created:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      modified:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      user:
+                        type: string
+                    required:
+                    - description
+                    - user
+                    type: object
+                    readOnly: true
+          description: ''
+    patch:
+      operationId: partial_updateComment
+      description: API endpoint that allows Comments to be viewed or edited.
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        description: A UUID string identifying this comment.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                message:
+                  type: string
+                  maxLength: 255
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  uuid:
+                    type: string
+                    format: uuid
+                  message:
+                    type: string
+                    maxLength: 255
+                  created:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  modified:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      password:
+                        type: string
+                        maxLength: 128
+                      last_login:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      is_superuser:
+                        type: boolean
+                        description: Designates that this user has all permissions
+                          without explicitly assigning them.
+                      username:
+                        type: string
+                        maxLength: 10
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 254
+                      fullname:
+                        type: string
+                        maxLength: 100
+                      picture:
+                        type: string
+                        format: binary
+                        nullable: true
+                      address:
+                        type: string
+                      phone_number:
+                        type: string
+                        maxLength: 20
+                      date_joined:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      is_staff:
+                        type: boolean
+                      is_active:
+                        type: boolean
+                      groups:
+                        type: array
+                        items:
+                          type: integer
+                        description: The groups this user belongs to. A user will
+                          get all permissions granted to each of their groups.
+                      user_permissions:
+                        type: array
+                        items:
+                          type: integer
+                        description: Specific permissions for this user.
+                    required:
+                    - password
+                    - username
+                    - email
+                    type: object
+                    readOnly: true
+                  post:
+                    properties:
+                      uuid:
+                        type: string
+                        format: uuid
+                      description:
+                        type: string
+                        maxLength: 255
+                      photo:
+                        type: string
+                        format: binary
+                        nullable: true
+                      created:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      modified:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      user:
+                        type: string
+                    required:
+                    - description
+                    - user
+                    type: object
+                    readOnly: true
+          description: ''
+    delete:
+      operationId: destroyComment
+      description: API endpoint that allows Comments to be viewed or edited.
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        description: A UUID string identifying this comment.
+        schema:
+          type: string
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/v1/accounts/profile/:
+    get:
+      operationId: listDefaultUserProfiles
+      description: Get or set user profile.
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: string
+                      format: uuid
+                      readOnly: true
+                    username:
+                      type: string
+                      maxLength: 10
+                    email:
+                      type: string
+                      format: email
+                      maxLength: 254
+                    fullname:
+                      type: string
+                      maxLength: 100
+                    picture:
+                      type: string
+                      format: binary
+                      nullable: true
+                    address:
+                      type: string
+                    phone_number:
+                      type: string
+                      maxLength: 20
+                  required:
+                  - username
+                  - email
+          description: ''
+    post:
+      operationId: CreateDefaultUserProfile
+      description: Get or set user profile.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                  maxLength: 10
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                fullname:
+                  type: string
+                  maxLength: 100
+                picture:
+                  type: string
+                  format: binary
+                  nullable: true
+                address:
+                  type: string
+                phone_number:
+                  type: string
+                  maxLength: 20
+              required:
+              - username
+              - email
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  username:
+                    type: string
+                    maxLength: 10
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  fullname:
+                    type: string
+                    maxLength: 100
+                  picture:
+                    type: string
+                    format: binary
+                    nullable: true
+                  address:
+                    type: string
+                  phone_number:
+                    type: string
+                    maxLength: 20
+                required:
+                - username
+                - email
+          description: ''
+    put:
+      operationId: UpdateDefaultUserProfile
+      description: Get or set user profile.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                  maxLength: 10
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                fullname:
+                  type: string
+                  maxLength: 100
+                picture:
+                  type: string
+                  format: binary
+                  nullable: true
+                address:
+                  type: string
+                phone_number:
+                  type: string
+                  maxLength: 20
+              required:
+              - username
+              - email
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  username:
+                    type: string
+                    maxLength: 10
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  fullname:
+                    type: string
+                    maxLength: 100
+                  picture:
+                    type: string
+                    format: binary
+                    nullable: true
+                  address:
+                    type: string
+                  phone_number:
+                    type: string
+                    maxLength: 20
+                required:
+                - username
+                - email
+          description: ''
+    patch:
+      operationId: PartialUpdateDefaultUserProfile
+      description: Get or set user profile.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                  maxLength: 10
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                fullname:
+                  type: string
+                  maxLength: 100
+                picture:
+                  type: string
+                  format: binary
+                  nullable: true
+                address:
+                  type: string
+                phone_number:
+                  type: string
+                  maxLength: 20
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  username:
+                    type: string
+                    maxLength: 10
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  fullname:
+                    type: string
+                    maxLength: 100
+                  picture:
+                    type: string
+                    format: binary
+                    nullable: true
+                  address:
+                    type: string
+                  phone_number:
+                    type: string
+                    maxLength: 20
+                required:
+                - username
+                - email
+          description: ''
+  /api/v1/accounts/register/:
+    post:
+      operationId: CreateDefaultRegisterUser
+      description: Register new user.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                  maxLength: 10
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                fullname:
+                  type: string
+                  maxLength: 100
+                picture:
+                  type: string
+                  format: binary
+                  nullable: true
+                address:
+                  type: string
+                phone_number:
+                  type: string
+                  maxLength: 20
+                password:
+                  type: string
+                  maxLength: 128
+                password_confirm:
+                  type: string
+                  writeOnly: true
+              required:
+              - username
+              - email
+              - password
+              - password_confirm
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    readOnly: true
+                  username:
+                    type: string
+                    maxLength: 10
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  fullname:
+                    type: string
+                    maxLength: 100
+                  picture:
+                    type: string
+                    format: binary
+                    nullable: true
+                  address:
+                    type: string
+                  phone_number:
+                    type: string
+                    maxLength: 20
+                  password:
+                    type: string
+                    maxLength: 128
+                required:
+                - username
+                - email
+                - password
+          description: ''
+  /api/v1/accounts/verify-registration/:
+    post:
+      operationId: CreateVerifyRegistration
+      description: Verify registration via signature.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                user_id:
+                  type: string
+                timestamp:
+                  type: integer
+                signature:
+                  type: string
+              required:
+              - user_id
+              - timestamp
+              - signature
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  user_id:
+                    type: string
+                  timestamp:
+                    type: integer
+                  signature:
+                    type: string
+                required:
+                - user_id
+                - timestamp
+                - signature
+          description: ''
+  /api/v1/accounts/send-reset-password-link/:
+    post:
+      operationId: CreateDefaultSendResetPasswordLink
+      description: Send email with reset password link.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                login:
+                  type: string
+              required:
+              - login
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  login:
+                    type: string
+                required:
+                - login
+          description: ''
+  /api/v1/accounts/reset-password/:
+    post:
+      operationId: CreateResetPassword
+      description: Reset password, given the signature and timestamp from the link.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                user_id:
+                  type: string
+                timestamp:
+                  type: integer
+                signature:
+                  type: string
+                password:
+                  type: string
+              required:
+              - user_id
+              - timestamp
+              - signature
+              - password
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  user_id:
+                    type: string
+                  timestamp:
+                    type: integer
+                  signature:
+                    type: string
+                  password:
+                    type: string
+                required:
+                - user_id
+                - timestamp
+                - signature
+                - password
+          description: ''
+  /api/v1/accounts/login/:
+    post:
+      operationId: CreateDefaultLogin
+      description: Logs in the user via given login and password.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                login:
+                  type: string
+                password:
+                  type: string
+              required:
+              - login
+              - password
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  login:
+                    type: string
+                  password:
+                    type: string
+                required:
+                - login
+                - password
+          description: ''
+  /api/v1/accounts/logout/:
+    post:
+      operationId: CreateLogout
+      description: 'Logs out the user. returns an error if the user is not
+
+        authenticated.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                revoke_token:
+                  type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  revoke_token:
+                    type: boolean
+          description: ''
+  /api/v1/accounts/change-password/:
+    post:
+      operationId: CreateChangePassword
+      description: Change the user password.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                old_password:
+                  type: string
+                password:
+                  type: string
+                password_confirm:
+                  type: string
+                  writeOnly: true
+              required:
+              - old_password
+              - password
+              - password_confirm
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  old_password:
+                    type: string
+                  password:
+                    type: string
+                required:
+                - old_password
+                - password
+          description: ''
+  /api/v1/accounts/register-email/:
+    post:
+      operationId: CreateDefaultRegisterEmail
+      description: Register new email.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                email:
+                  type: string
+                  format: email
+              required:
+              - email
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  email:
+                    type: string
+                    format: email
+                required:
+                - email
+          description: ''
+  /api/v1/accounts/verify-email/:
+    post:
+      operationId: CreateVerifyEmail
+      description: Verify email via signature.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                user_id:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                timestamp:
+                  type: integer
+                signature:
+                  type: string
+              required:
+              - user_id
+              - email
+              - timestamp
+              - signature
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  user_id:
+                    type: string
+                  email:
+                    type: string
+                    format: email
+                  timestamp:
+                    type: integer
+                  signature:
+                    type: string
+                required:
+                - user_id
+                - email
+                - timestamp
+                - signature
+          description: ''
+  /api/v1/token/access/:
+    post:
+      operationId: CreateTokenObtainPair
+      description: 'Takes a set of user credentials and returns an access and refresh
+        JSON web
+
+        token pair to prove the authentication of those credentials.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  writeOnly: true
+              required:
+              - username
+              - password
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  username:
+                    type: string
+                required:
+                - username
+          description: ''
+  /api/v1/token/refresh/:
+    post:
+      operationId: CreateTokenRefresh
+      description: 'Takes a refresh type JSON web token and returns an access type
+        JSON web
+
+        token if the refresh token is valid.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                refresh:
+                  type: string
+              required:
+              - refresh
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  refresh:
+                    type: string
+                required:
+                - refresh
+          description: ''
+  /api/v1/token/verify/:
+    post:
+      operationId: CreateTokenVerify
+      description: 'Takes a token and indicates if it is valid.  This view provides
+        no
+
+        information about a token''s fitness for a particular use.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                token:
+                  type: string
+              required:
+              - token
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                required:
+                - token
+          description: ''
