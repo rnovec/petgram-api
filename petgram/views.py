@@ -19,16 +19,35 @@ class PostViewSet(viewsets.ModelViewSet):
     parser_classes = (MultiPartParser, FormParser)
 
     def create(self, request, *args, **kwargs):
-        pk = request.data['user_id']
-        description = request.data['description']
+        """
+        Create a Post, save file and set user owner
+        """
+        # avoid post without image
         if 'photo' not in request.data:
             raise ParseError("Empty content")
+
+        # obtain user instance
+        pk = request.data['user_id']
+        description = request.data['description']
         user = get_object_or_404(User, id=pk)
+
+        # create user's post and save image
         f = request.data['photo']
         post = Post.objects.create(user=user, description=description)
         post.photo.save(f.name, f, save=True)
+
+        # prepare response
         serializer = PostSerializer(post)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def destroy(self, request, *args, **kwargs):
+        """
+        Destroy an instance and remove file from S3
+        """
+        instance = self.get_object()
+        instance.photo.remove(save=False)
+        instance.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
