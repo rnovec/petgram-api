@@ -25,7 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get('DJANGO_DEBUG', 0))
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', 0))
+
+ADMIN_ENABLED = bool(os.environ.get('ADMIN_ENABLED', 0))
 
 ALLOWED_HOSTS = ['*']
 
@@ -84,6 +86,12 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 10,
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
@@ -107,6 +115,8 @@ SIMPLE_JWT = {
     "USER_ID_FIELD": "id",
     'USER_ID_CLAIM': 'id',
 }
+
+AUTH_USER_MODEL = 'users.User' # Custom User Model
 
 # ---------------------------------------------------------------------
 

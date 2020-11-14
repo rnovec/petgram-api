@@ -21,7 +21,7 @@ from django.conf import settings
 
 # REST FRAMEWORK
 from rest_framework import routers
-from users.views import UserViewSet, ProfileViewSet
+from users.views import UserViewSet
 from petgram.views import PostViewSet, CommentViewSet
 
 # SIMPLE JWT
@@ -34,7 +34,6 @@ from rest_framework_simplejwt.views import (
 # api router
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r"users", UserViewSet)
-router.register(r"profiles", ProfileViewSet)
 router.register(r"posts", PostViewSet)
 router.register(r"comments", CommentViewSet)
 
@@ -58,7 +57,7 @@ api_urlpatterns = [
 
 # http://domain.com/
 urlpatterns = [
-    path('', admin.site.urls),                 # admin site urls
+    # path('', admin.site.urls),                 # admin site urls
     path('api/v1/', include(api_urlpatterns)), # api v1.0
 ]
 

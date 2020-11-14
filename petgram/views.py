@@ -8,7 +8,7 @@ from rest_framework.parsers import FileUploadParser
 
 from .serializers import PostSerializer, CommentSerializer
 from .models import Post, Comment
-from users.models import Profile
+from users.models import User
 
 class PostViewSet(viewsets.ModelViewSet):
     """
@@ -18,13 +18,13 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
 
     def create(self, request, *args, **kwargs):
-        pk = request.data['profile_id']
+        pk = request.data['user_id']
         description = request.data['description']
         if 'photo' not in request.data:
             raise ParseError("Empty content")
-        profile = get_object_or_404(Profile, id=pk)
+        user = get_object_or_404(User, id=pk)
         f = request.data['photo']
-        post = Post.objects.create(profile=profile, description=description)
+        post = Post.objects.create(user=user, description=description)
         post.photo.save(f.name, f, save=True)
         serializer = PostSerializer(post)
         return Response(serializer.data, status=status.HTTP_201_CREATED)    
