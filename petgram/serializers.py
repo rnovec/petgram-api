@@ -10,8 +10,18 @@ class PostLikesField(serializers.RelatedField):
         return value.user.id
 
 
+class PostCommentsField(serializers.RelatedField):
+    def to_representation(self, value):
+        return value.user.id
+
+
 class PostSerializer(serializers.ModelSerializer):
     likes = PostLikesField(
+        many=True,
+        read_only=True
+    )
+
+    comments = PostCommentsField(
         many=True,
         read_only=True
     )

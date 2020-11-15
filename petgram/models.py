@@ -26,7 +26,8 @@ class Comment(models.Model):
     uuid = models.UUIDField(default=uuid4, primary_key=True, unique=True)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(
+        Post, related_name='comments', on_delete=models.CASCADE)
 
     message = models.TextField(blank=True, max_length=255)
 
@@ -42,7 +43,8 @@ class Like(models.Model):
     """Like model."""
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, related_name='likes', on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, related_name='likes',
+                             on_delete=models.CASCADE)
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
