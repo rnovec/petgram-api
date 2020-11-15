@@ -31,6 +31,11 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 
+admin.site.site_header = "Petgram Admin"
+admin.site.site_title = "Petgram Admin Portal"
+admin.site.index_title = "Welcome to Petgram Administration Portal"
+admin.site.site_url = "/api/v1/"
+
 # api router
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r"users", UserViewSet)
