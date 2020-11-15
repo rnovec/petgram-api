@@ -45,7 +45,7 @@ class PostViewSet(viewsets.ModelViewSet):
         Destroy an instance and remove file from S3
         """
         instance = self.get_object()
-        instance.photo.remove(save=False)
+        instance.photo.delete(save=False)
         instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
