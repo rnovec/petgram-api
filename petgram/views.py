@@ -4,7 +4,7 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.exceptions import ParseError
-from rest_framework.parsers import FileUploadParser, MultiPartParser, FormParser
+from rest_framework.parsers import FileUploadParser, MultiPartParser, FormParser, JSONParser
 from users.models import User
 from .models import Post, Comment, Like
 from .serializers import PostSerializer, CommentSerializer, LikeSerializer
@@ -16,7 +16,7 @@ class PostViewSet(viewsets.ModelViewSet):
     """
     queryset = Post.objects.all().order_by('-created')
     serializer_class = PostSerializer
-    parser_classes = (MultiPartParser, FormParser)
+    parser_classes = (MultiPartParser, FormParser, JSONParser)
 
     def create(self, request, *args, **kwargs):
         """
@@ -62,6 +62,22 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer = CommentSerializer(post_comments, many=True)
         return Response(serializer.data)
 
+    @action(detail=True, methods=['put'])
+    def likes(self, request, pk=None):
+        user_id = request.data['user']
+        user = get_object_or_404(User, pk=user_id)
+        post = get_object_or_404(Post, pk=pk)
+        try:
+            like = Like.objects.get(post=post, user=user)
+            if request.data['action'] == 'dislike':
+                like.delete()
+        except Like.DoesNotExist:
+            like = Like.objects.create(post=post, user=user)
+            serializer = LikeSerializer(like)
+            return Response(serializer.data)
+            
+        return Response(status=status.HTTP_204_NO_CONTENT)
+            
 
 class CommentViewSet(viewsets.ModelViewSet):
     """

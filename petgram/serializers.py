@@ -5,7 +5,17 @@ from .models import Post, Comment, Like
 # Serializers define the API representation.
 
 
+class PostLikesField(serializers.RelatedField):
+    def to_representation(self, value):
+        return value.user.id
+
+
 class PostSerializer(serializers.ModelSerializer):
+    likes = PostLikesField(
+        many=True,
+        read_only=True
+    )
+
     class Meta:
         model = Post
         depth = 1
