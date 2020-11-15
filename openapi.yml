@@ -88,7 +88,7 @@ paths:
       parameters: []
       requestBody:
         content:
-          multipart/form-data:
+          application/json:
             schema: &id001
               properties:
                 id:
@@ -117,6 +117,8 @@ paths:
               - username
               - email
           application/x-www-form-urlencoded:
+            schema: *id001
+          multipart/form-data:
             schema: *id001
       responses:
         '200':
@@ -237,7 +239,7 @@ paths:
           type: string
       requestBody:
         content:
-          multipart/form-data:
+          application/json:
             schema: &id002
               properties:
                 id:
@@ -266,6 +268,8 @@ paths:
               - username
               - email
           application/x-www-form-urlencoded:
+            schema: *id002
+          multipart/form-data:
             schema: *id002
       responses:
         '200':
@@ -327,7 +331,7 @@ paths:
           type: string
       requestBody:
         content:
-          multipart/form-data:
+          application/json:
             schema: &id003
               properties:
                 id:
@@ -353,6 +357,8 @@ paths:
                   type: string
                   maxLength: 20
           application/x-www-form-urlencoded:
+            schema: *id003
+          multipart/form-data:
             schema: *id003
       responses:
         '200':
@@ -415,6 +421,53 @@ paths:
       responses:
         '204':
           description: ''
+  /api/v1/users/{id}/posts:
+    get:
+      operationId: postsUser
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this user.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  username:
+                    type: string
+                    maxLength: 10
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  fullname:
+                    type: string
+                    maxLength: 100
+                  picture:
+                    type: string
+                    format: binary
+                    nullable: true
+                  address:
+                    type: string
+                  phone_number:
+                    type: string
+                    maxLength: 20
+                  date_joined:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - username
+                - email
+          description: ''
   /api/v1/posts:
     get:
       operationId: listPosts
@@ -467,6 +520,16 @@ paths:
                         uuid:
                           type: string
                           format: uuid
+                        likes:
+                          type: array
+                          items:
+                            type: string
+                          readOnly: true
+                        comments:
+                          type: array
+                          items:
+                            type: string
+                          readOnly: true
                         description:
                           type: string
                           maxLength: 255
@@ -528,40 +591,15 @@ paths:
                             groups:
                               type: array
                               items:
-                                properties:
-                                  id:
-                                    type: integer
-                                    readOnly: true
-                                  name:
-                                    type: string
-                                    maxLength: 150
-                                  permissions:
-                                    type: array
-                                    items:
-                                      type: integer
-                                required:
-                                - name
-                              readOnly: true
+                                type: integer
+                              description: The groups this user belongs to. A user
+                                will get all permissions granted to each of their
+                                groups.
                             user_permissions:
                               type: array
                               items:
-                                properties:
-                                  id:
-                                    type: integer
-                                    readOnly: true
-                                  name:
-                                    type: string
-                                    maxLength: 255
-                                  codename:
-                                    type: string
-                                    maxLength: 100
-                                  content_type:
-                                    type: integer
-                                required:
-                                - name
-                                - codename
-                                - content_type
-                              readOnly: true
+                                type: integer
+                              description: Specific permissions for this user.
                           required:
                           - password
                           - username
@@ -573,11 +611,11 @@ paths:
           description: ''
     post:
       operationId: createPost
-      description: API endpoint that allows Posts to be viewed or edited.
+      description: Create a Post, save file and set user owner
       parameters: []
       requestBody:
         content:
-          multipart/form-data:
+          application/json:
             schema: &id004
               properties:
                 uuid:
@@ -594,6 +632,8 @@ paths:
               - description
           application/x-www-form-urlencoded:
             schema: *id004
+          multipart/form-data:
+            schema: *id004
       responses:
         '200':
           content:
@@ -603,6 +643,16 @@ paths:
                   uuid:
                     type: string
                     format: uuid
+                  likes:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                  comments:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
                   description:
                     type: string
                     maxLength: 255
@@ -664,40 +714,14 @@ paths:
                       groups:
                         type: array
                         items:
-                          properties:
-                            id:
-                              type: integer
-                              readOnly: true
-                            name:
-                              type: string
-                              maxLength: 150
-                            permissions:
-                              type: array
-                              items:
-                                type: integer
-                          required:
-                          - name
-                        readOnly: true
+                          type: integer
+                        description: The groups this user belongs to. A user will
+                          get all permissions granted to each of their groups.
                       user_permissions:
                         type: array
                         items:
-                          properties:
-                            id:
-                              type: integer
-                              readOnly: true
-                            name:
-                              type: string
-                              maxLength: 255
-                            codename:
-                              type: string
-                              maxLength: 100
-                            content_type:
-                              type: integer
-                          required:
-                          - name
-                          - codename
-                          - content_type
-                        readOnly: true
+                          type: integer
+                        description: Specific permissions for this user.
                     required:
                     - password
                     - username
@@ -739,6 +763,16 @@ paths:
                   uuid:
                     type: string
                     format: uuid
+                  likes:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                  comments:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
                   description:
                     type: string
                     maxLength: 255
@@ -800,40 +834,14 @@ paths:
                       groups:
                         type: array
                         items:
-                          properties:
-                            id:
-                              type: integer
-                              readOnly: true
-                            name:
-                              type: string
-                              maxLength: 150
-                            permissions:
-                              type: array
-                              items:
-                                type: integer
-                          required:
-                          - name
-                        readOnly: true
+                          type: integer
+                        description: The groups this user belongs to. A user will
+                          get all permissions granted to each of their groups.
                       user_permissions:
                         type: array
                         items:
-                          properties:
-                            id:
-                              type: integer
-                              readOnly: true
-                            name:
-                              type: string
-                              maxLength: 255
-                            codename:
-                              type: string
-                              maxLength: 100
-                            content_type:
-                              type: integer
-                          required:
-                          - name
-                          - codename
-                          - content_type
-                        readOnly: true
+                          type: integer
+                        description: Specific permissions for this user.
                     required:
                     - password
                     - username
@@ -867,7 +875,7 @@ paths:
           type: string
       requestBody:
         content:
-          multipart/form-data:
+          application/json:
             schema: &id005
               properties:
                 uuid:
@@ -884,6 +892,8 @@ paths:
               - description
           application/x-www-form-urlencoded:
             schema: *id005
+          multipart/form-data:
+            schema: *id005
       responses:
         '200':
           content:
@@ -893,6 +903,16 @@ paths:
                   uuid:
                     type: string
                     format: uuid
+                  likes:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                  comments:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
                   description:
                     type: string
                     maxLength: 255
@@ -954,40 +974,14 @@ paths:
                       groups:
                         type: array
                         items:
-                          properties:
-                            id:
-                              type: integer
-                              readOnly: true
-                            name:
-                              type: string
-                              maxLength: 150
-                            permissions:
-                              type: array
-                              items:
-                                type: integer
-                          required:
-                          - name
-                        readOnly: true
+                          type: integer
+                        description: The groups this user belongs to. A user will
+                          get all permissions granted to each of their groups.
                       user_permissions:
                         type: array
                         items:
-                          properties:
-                            id:
-                              type: integer
-                              readOnly: true
-                            name:
-                              type: string
-                              maxLength: 255
-                            codename:
-                              type: string
-                              maxLength: 100
-                            content_type:
-                              type: integer
-                          required:
-                          - name
-                          - codename
-                          - content_type
-                        readOnly: true
+                          type: integer
+                        description: Specific permissions for this user.
                     required:
                     - password
                     - username
@@ -1021,7 +1015,7 @@ paths:
           type: string
       requestBody:
         content:
-          multipart/form-data:
+          application/json:
             schema: &id006
               properties:
                 uuid:
@@ -1036,6 +1030,8 @@ paths:
                   nullable: true
           application/x-www-form-urlencoded:
             schema: *id006
+          multipart/form-data:
+            schema: *id006
       responses:
         '200':
           content:
@@ -1045,6 +1041,16 @@ paths:
                   uuid:
                     type: string
                     format: uuid
+                  likes:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                  comments:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
                   description:
                     type: string
                     maxLength: 255
@@ -1106,40 +1112,14 @@ paths:
                       groups:
                         type: array
                         items:
-                          properties:
-                            id:
-                              type: integer
-                              readOnly: true
-                            name:
-                              type: string
-                              maxLength: 150
-                            permissions:
-                              type: array
-                              items:
-                                type: integer
-                          required:
-                          - name
-                        readOnly: true
+                          type: integer
+                        description: The groups this user belongs to. A user will
+                          get all permissions granted to each of their groups.
                       user_permissions:
                         type: array
                         items:
-                          properties:
-                            id:
-                              type: integer
-                              readOnly: true
-                            name:
-                              type: string
-                              maxLength: 255
-                            codename:
-                              type: string
-                              maxLength: 100
-                            content_type:
-                              type: integer
-                          required:
-                          - name
-                          - codename
-                          - content_type
-                        readOnly: true
+                          type: integer
+                        description: Specific permissions for this user.
                     required:
                     - password
                     - username
@@ -1151,7 +1131,7 @@ paths:
           description: ''
     delete:
       operationId: destroyPost
-      description: API endpoint that allows Posts to be viewed or edited.
+      description: Destroy an instance and remove file from S3
       parameters:
       - name: uuid
         in: path
@@ -1173,6 +1153,114 @@ paths:
           type: string
       responses:
         '204':
+          description: ''
+  /api/v1/posts/{uuid}/comments:
+    get:
+      operationId: commentsPost
+      description: API endpoint that allows Posts to be viewed or edited.
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        description: A UUID string identifying this post.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  uuid:
+                    type: string
+                    format: uuid
+                  likes:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                  comments:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                  description:
+                    type: string
+                    maxLength: 255
+                  photo:
+                    type: string
+                    format: binary
+                    nullable: true
+                  created:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  modified:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      password:
+                        type: string
+                        maxLength: 128
+                      last_login:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      is_superuser:
+                        type: boolean
+                        description: Designates that this user has all permissions
+                          without explicitly assigning them.
+                      username:
+                        type: string
+                        maxLength: 10
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 254
+                      fullname:
+                        type: string
+                        maxLength: 100
+                      picture:
+                        type: string
+                        format: binary
+                        nullable: true
+                      address:
+                        type: string
+                      phone_number:
+                        type: string
+                        maxLength: 20
+                      date_joined:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      is_staff:
+                        type: boolean
+                      is_active:
+                        type: boolean
+                      groups:
+                        type: array
+                        items:
+                          type: integer
+                        description: The groups this user belongs to. A user will
+                          get all permissions granted to each of their groups.
+                      user_permissions:
+                        type: array
+                        items:
+                          type: integer
+                        description: Specific permissions for this user.
+                    required:
+                    - password
+                    - username
+                    - email
+                    type: object
+                    readOnly: true
+                required:
+                - description
           description: ''
   /api/v1/comments:
     get:
@@ -1328,12 +1416,12 @@ paths:
           description: ''
     post:
       operationId: createComment
-      description: API endpoint that allows Comments to be viewed or edited.
+      description: Create a Comment and set user owner
       parameters: []
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id007
               properties:
                 uuid:
                   type: string
@@ -1341,6 +1429,10 @@ paths:
                 message:
                   type: string
                   maxLength: 255
+          application/x-www-form-urlencoded:
+            schema: *id007
+          multipart/form-data:
+            schema: *id007
       responses:
         '200':
           content:
@@ -1605,7 +1697,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id008
               properties:
                 uuid:
                   type: string
@@ -1613,6 +1705,10 @@ paths:
                 message:
                   type: string
                   maxLength: 255
+          application/x-www-form-urlencoded:
+            schema: *id008
+          multipart/form-data:
+            schema: *id008
       responses:
         '200':
           content:
@@ -1746,7 +1842,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id009
               properties:
                 uuid:
                   type: string
@@ -1754,6 +1850,10 @@ paths:
                 message:
                   type: string
                   maxLength: 255
+          application/x-www-form-urlencoded:
+            schema: *id009
+          multipart/form-data:
+            schema: *id009
       responses:
         '200':
           content:
@@ -1934,7 +2034,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id010
               properties:
                 username:
                   type: string
@@ -1958,6 +2058,10 @@ paths:
               required:
               - username
               - email
+          application/x-www-form-urlencoded:
+            schema: *id010
+          multipart/form-data:
+            schema: *id010
       responses:
         '200':
           content:
@@ -1998,7 +2102,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id011
               properties:
                 username:
                   type: string
@@ -2022,6 +2126,10 @@ paths:
               required:
               - username
               - email
+          application/x-www-form-urlencoded:
+            schema: *id011
+          multipart/form-data:
+            schema: *id011
       responses:
         '200':
           content:
@@ -2062,7 +2170,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id012
               properties:
                 username:
                   type: string
@@ -2083,6 +2191,10 @@ paths:
                 phone_number:
                   type: string
                   maxLength: 20
+          application/x-www-form-urlencoded:
+            schema: *id012
+          multipart/form-data:
+            schema: *id012
       responses:
         '200':
           content:
@@ -2124,7 +2236,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id013
               properties:
                 username:
                   type: string
@@ -2156,6 +2268,10 @@ paths:
               - email
               - password
               - password_confirm
+          application/x-www-form-urlencoded:
+            schema: *id013
+          multipart/form-data:
+            schema: *id013
       responses:
         '200':
           content:
@@ -2201,7 +2317,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id014
               properties:
                 user_id:
                   type: string
@@ -2213,6 +2329,10 @@ paths:
               - user_id
               - timestamp
               - signature
+          application/x-www-form-urlencoded:
+            schema: *id014
+          multipart/form-data:
+            schema: *id014
       responses:
         '200':
           content:
@@ -2238,12 +2358,16 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id015
               properties:
                 login:
                   type: string
               required:
               - login
+          application/x-www-form-urlencoded:
+            schema: *id015
+          multipart/form-data:
+            schema: *id015
       responses:
         '200':
           content:
@@ -2263,7 +2387,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id016
               properties:
                 user_id:
                   type: string
@@ -2278,6 +2402,10 @@ paths:
               - timestamp
               - signature
               - password
+          application/x-www-form-urlencoded:
+            schema: *id016
+          multipart/form-data:
+            schema: *id016
       responses:
         '200':
           content:
@@ -2306,7 +2434,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id017
               properties:
                 login:
                   type: string
@@ -2315,6 +2443,10 @@ paths:
               required:
               - login
               - password
+          application/x-www-form-urlencoded:
+            schema: *id017
+          multipart/form-data:
+            schema: *id017
       responses:
         '200':
           content:
@@ -2339,10 +2471,14 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id018
               properties:
                 revoke_token:
                   type: boolean
+          application/x-www-form-urlencoded:
+            schema: *id018
+          multipart/form-data:
+            schema: *id018
       responses:
         '200':
           content:
@@ -2360,7 +2496,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id019
               properties:
                 old_password:
                   type: string
@@ -2373,6 +2509,10 @@ paths:
               - old_password
               - password
               - password_confirm
+          application/x-www-form-urlencoded:
+            schema: *id019
+          multipart/form-data:
+            schema: *id019
       responses:
         '200':
           content:
@@ -2395,13 +2535,17 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id020
               properties:
                 email:
                   type: string
                   format: email
               required:
               - email
+          application/x-www-form-urlencoded:
+            schema: *id020
+          multipart/form-data:
+            schema: *id020
       responses:
         '200':
           content:
@@ -2422,7 +2566,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id021
               properties:
                 user_id:
                   type: string
@@ -2438,6 +2582,10 @@ paths:
               - email
               - timestamp
               - signature
+          application/x-www-form-urlencoded:
+            schema: *id021
+          multipart/form-data:
+            schema: *id021
       responses:
         '200':
           content:
@@ -2470,7 +2618,7 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id022
               properties:
                 username:
                   type: string
@@ -2480,6 +2628,10 @@ paths:
               required:
               - username
               - password
+          application/x-www-form-urlencoded:
+            schema: *id022
+          multipart/form-data:
+            schema: *id022
       responses:
         '200':
           content:
@@ -2502,12 +2654,16 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id023
               properties:
                 refresh:
                   type: string
               required:
               - refresh
+          application/x-www-form-urlencoded:
+            schema: *id023
+          multipart/form-data:
+            schema: *id023
       responses:
         '200':
           content:
@@ -2530,12 +2686,16 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
+            schema: &id024
               properties:
                 token:
                   type: string
               required:
               - token
+          application/x-www-form-urlencoded:
+            schema: *id024
+          multipart/form-data:
+            schema: *id024
       responses:
         '200':
           content:
@@ -2546,4 +2706,133 @@ paths:
                     type: string
                 required:
                 - token
+          description: ''
+  /api/v1/posts/{uuid}/likes:
+    put:
+      operationId: likesPost
+      description: API endpoint that allows Posts to be viewed or edited.
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        description: A UUID string identifying this post.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id025
+              properties:
+                uuid:
+                  type: string
+                  format: uuid
+                description:
+                  type: string
+                  maxLength: 255
+                photo:
+                  type: string
+                  format: binary
+                  nullable: true
+              required:
+              - description
+          application/x-www-form-urlencoded:
+            schema: *id025
+          multipart/form-data:
+            schema: *id025
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  uuid:
+                    type: string
+                    format: uuid
+                  likes:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                  comments:
+                    type: array
+                    items:
+                      type: string
+                    readOnly: true
+                  description:
+                    type: string
+                    maxLength: 255
+                  photo:
+                    type: string
+                    format: binary
+                    nullable: true
+                  created:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  modified:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  user:
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      password:
+                        type: string
+                        maxLength: 128
+                      last_login:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      is_superuser:
+                        type: boolean
+                        description: Designates that this user has all permissions
+                          without explicitly assigning them.
+                      username:
+                        type: string
+                        maxLength: 10
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 254
+                      fullname:
+                        type: string
+                        maxLength: 100
+                      picture:
+                        type: string
+                        format: binary
+                        nullable: true
+                      address:
+                        type: string
+                      phone_number:
+                        type: string
+                        maxLength: 20
+                      date_joined:
+                        type: string
+                        format: date-time
+                        readOnly: true
+                      is_staff:
+                        type: boolean
+                      is_active:
+                        type: boolean
+                      groups:
+                        type: array
+                        items:
+                          type: integer
+                        description: The groups this user belongs to. A user will
+                          get all permissions granted to each of their groups.
+                      user_permissions:
+                        type: array
+                        items:
+                          type: integer
+                        description: Specific permissions for this user.
+                    required:
+                    - password
+                    - username
+                    - email
+                    type: object
+                    readOnly: true
+                required:
+                - description
           description: ''

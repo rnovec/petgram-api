@@ -4,7 +4,6 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.exceptions import ParseError
-from rest_framework.parsers import FileUploadParser, MultiPartParser, FormParser, JSONParser
 from users.models import User
 from .models import Post, Comment, Like
 from .serializers import PostSerializer, CommentSerializer, LikeSerializer
@@ -16,7 +15,6 @@ class PostViewSet(viewsets.ModelViewSet):
     """
     queryset = Post.objects.all().order_by('-created')
     serializer_class = PostSerializer
-    parser_classes = (MultiPartParser, FormParser, JSONParser)
 
     def create(self, request, *args, **kwargs):
         """
@@ -103,11 +101,3 @@ class CommentViewSet(viewsets.ModelViewSet):
         # prepare response
         serializer = self.get_serializer(comment)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-class LikeViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows Likes to be viewed or edited.
-    """
-    queryset = Like.objects.all().order_by('-created')
-    serializer_class = LikeSerializer
