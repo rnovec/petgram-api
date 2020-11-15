@@ -4,4 +4,4 @@ venv
 *.env*
 *.png
 *.jpg
-static/*.*
+static/

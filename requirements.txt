@@ -32,4 +32,5 @@ toml==0.10.2
 typing==3.7.4.3
 uritemplate==3.0.1
 urllib3==1.25.11
+whitenoise==5.2.0
 zipp==3.4.0
