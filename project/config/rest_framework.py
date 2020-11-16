@@ -50,5 +50,5 @@ SIMPLE_JWT = {
 # Django Cors Headers
 # https://pypi.org/project/django-cors-headers/
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
