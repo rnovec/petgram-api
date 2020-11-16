@@ -35,15 +35,9 @@ REST_REGISTRATION = {
 # Simple JWT
 # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html
 
-JWT_AUTH = {
-    "JWT_ALLOW_REFRESH": True,
-    "JWT_EXPIRATION_DELTA": datetime.timedelta(seconds=10),
-    "JWT_REFRESH_EXPIRATION_DELTA": datetime.timedelta(minutes=15),
-}
-
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(hours=1),
-    "REFRESH_TOKEN_LIFETIME": datetime.timedelta(hours=1),
+    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=1),
     "USER_ID_FIELD": "id",
     'USER_ID_CLAIM': 'id',
 }
