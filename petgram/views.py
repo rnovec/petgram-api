@@ -38,6 +38,20 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer = PostSerializer(post)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+
+        if 'photo' in request.data:
+            instance.photo.delete(save=False)
+
+        serializer = self.get_serializer(
+            instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        return Response(serializer.data)
+
     def destroy(self, request, *args, **kwargs):
         """
         Destroy an instance and remove file from S3
