@@ -1,6 +1,7 @@
 # Django REST Framework
 # https://www.django-rest-framework.org/
 
+import os
 import datetime
 
 REST_FRAMEWORK = {
@@ -50,5 +51,5 @@ SIMPLE_JWT = {
 # Django Cors Headers
 # https://pypi.org/project/django-cors-headers/
 
-CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = os.environ.get("DJANGO_ALLOWED_ORIGINS").split(' ')
