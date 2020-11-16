@@ -11,7 +11,7 @@ DEBUG = bool(os.environ.get('DJANGO_DEBUG', 0))
 
 ADMIN_ENABLED = bool(os.environ.get('ADMIN_ENABLED', 0))
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(' ')
 
 ROOT_URLCONF = 'project.urls'
 APPEND_SLASH = False
