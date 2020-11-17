@@ -7,9 +7,9 @@ import os
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get('DJANGO_DEBUG', 0))
+DEBUG = int(os.environ.get('DJANGO_DEBUG', 0))
 
-ADMIN_ENABLED = bool(os.environ.get('ADMIN_ENABLED', 0))
+ADMIN_ENABLED = int(os.environ.get('ADMIN_ENABLED', 0))
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(' ')
 
