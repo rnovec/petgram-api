@@ -119,7 +119,8 @@ List of users registered
 - **access**
 - **refresh**
 
-See the complete API reference [here](https://documenter.getpostman.com/view/4606205/TVeqc6kn)
+See the complete API reference [here](https://documenter.getpostman.com/view/4606205/TVeqc6kn) or use the DRF Browseable API available in https://petgram-demo.herokuapp.com/api/v1/
+
 
 ## License
 
