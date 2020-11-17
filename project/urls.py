@@ -18,11 +18,19 @@ from django.urls import path
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic.base import TemplateView
 
 # REST FRAMEWORK
 from rest_framework import routers
+from rest_framework.schemas import get_schema_view
 from users.views import UserViewSet
 from petgram.views import PostViewSet, CommentViewSet
+
+# REST REGISTRATION
+from rest_registration.api.views import (
+    register,
+    change_password
+)
 
 # SIMPLE JWT
 from rest_framework_simplejwt.views import (
@@ -45,25 +53,47 @@ router.register(r"comments", CommentViewSet)
 # jwt urls
 # http://domain.com/api/v1/token/...
 
-jwt_urlpatterns = [
-    path('access/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('verify/', TokenVerifyView.as_view(), name='token_verify'),
+auth_urlpatterns = [
+    path('/login', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    path('/change-password', change_password, name='change_password'),
+    path('/register', register, name='register'),
+]
+
+# api docs urls
+# http://domain.com/api/v1/docs
+
+api_docs = [
+    # Swagger
+    path('', TemplateView.as_view(
+        template_name='swagger.html',
+        extra_context={'schema_url': 'openapi-schema'}
+    ), name='swagger-ui'),
+
+    # OpenAPI
+    path('/openapi', get_schema_view(
+        title="Petgram API docs",
+        description="SHM Development Challenge API",
+        version="1.0.0"
+    ), name='openapi-schema'),
+
 ]
 
 # api urls
-# http://domain.com/api/v1/...
+# http://domain.com/api/v1/
 
 api_urlpatterns = [
-    path('', include(router.urls)),
-    path('accounts/', include('rest_registration.api.urls')),
-    path('token/', include(jwt_urlpatterns))
+    path('/', include(router.urls)),
+    path('/accounts', include(auth_urlpatterns)),
+    path('/docs', include(api_docs))
 ]
+
+
 
 # http://domain.com/
 urlpatterns = [
     path('', admin.site.urls),                 # admin site urls
-    path('api/v1/', include(api_urlpatterns)),  # api v1.0
+    path('api/v1', include(api_urlpatterns)),  # api v1.0
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

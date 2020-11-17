@@ -7,6 +7,7 @@ This a Django 3.0+ project for Software House Mérida Development Challenge.
 - Django 3.0+
 - Uses [Virtualenv](https://virtualenv.pypa.io/en/latest/installation.html) - Tool to create isolated Python environments.
 - [Django REST Framework](https://www.django-rest-framework.org/) - Powerful and flexible toolkit for building Web APIs.
+- [Django REST Registration](https://django-rest-registration.readthedocs.io/en/latest/index.html) - User registration REST API, based on Django-REST-Framework.
 - [Boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) - The Amazon Web Services (AWS) SDK for Python.
 - [Simple JWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/) - A JSON Web Token authentication plugin for the Django REST Framework.
 - Procfile for running gunicorn with New Relic's Python agent.
@@ -58,69 +59,9 @@ $ python manage.py createsuperuser
 
 ## API
 
-### Users
-
-#### Create users
-
-> **POST** /api/v1/accounts/register/
-
-- **username**
-- **email**
-- **fullname**
-- **password**
-- **password_confirm**
-
-##### Response
-
-**HTTP/1.1 201 OK**
-
-- **id**
-- **username**
-- **email**
-- **fullname**
-
-#### List users
-
-> **GET** /api/v1/users/
-
-##### Response
-
-**HTTP/1.1 200 OK**
-
-List of users registered
-
-### Tokens
-
-#### Access
-
-> **POST** /api/v1/token/access/
-
-- **username**
-- **password**
-
-##### Response
-
-**HTTP/1.1 200 OK**
-
-- **access**
-- **refresh**
-
-#### Refresh
-
-> **POST** /api/v1/token/refresh/
-
-- **access**
-- **refresh**
-
-##### Response
-
-**HTTP/1.1 201 OK**
-
-- **access**
-- **refresh**
-
-See the complete API reference [here](https://documenter.getpostman.com/view/4606205/TVeqc6kn) or use the DRF Browseable API available in https://petgram-demo.herokuapp.com/api/v1/
-
+- [DRF Browseable API](https://petgram-demo.herokuapp.com/api/v1/)
+- [Swagger docs](https://petgram-demo.herokuapp.com/api/v1/docs)
+- [Postman documenter](https://documenter.getpostman.com/view/4606205/TVeqdTDJ)
 
 ## License
 
