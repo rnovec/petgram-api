@@ -30,6 +30,10 @@ class PostSerializer(serializers.ModelSerializer):
         read_only=True
     )
 
+    action =  serializers.CharField(
+        write_only=True
+    )
+
     comments = CommentRelatedField(
         many=True,
         read_only=True

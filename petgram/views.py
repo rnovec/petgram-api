@@ -63,7 +63,9 @@ class PostViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['get'])
     def comments(self, request, pk=None):
-
+        """
+        Get post comments
+        """
         post_comments = Comment.objects.filter(post=pk).order_by('created')
 
         page = self.paginate_queryset(post_comments)

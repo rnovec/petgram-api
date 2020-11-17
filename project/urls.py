@@ -74,7 +74,7 @@ api_docs = [
     path('/openapi', get_schema_view(
         title="Petgram API docs",
         description="SHM Development Challenge API",
-        version="1.0.0"
+        version="1.0.0",
     ), name='openapi-schema'),
 
 ]

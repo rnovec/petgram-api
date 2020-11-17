@@ -19,9 +19,12 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
     def update(self, request, *args, **kwargs):
+        """
+        API endpoint that allows update users and profile picture
+        """
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
-        
+
         if 'picture' in request.data or 'clearAvatar' in request.data:
             instance.picture.delete(save=False)
 
@@ -34,7 +37,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['patch'])
     def picture(self, request, *args, **kwargs):
-
+        """
+        API endpoint that allows remove profile picture
+        """
         partial = kwargs.pop('partial', True)
         instance = self.get_object()
 
@@ -49,7 +54,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['get'])
     def posts(self, request, pk=None):
-
+        """
+        API endpoint that allows get user's posts
+        """
         user_posts = Post.objects.filter(user=pk).order_by('-created')
 
         page = self.paginate_queryset(user_posts)
