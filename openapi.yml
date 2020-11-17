@@ -520,6 +520,9 @@ paths:
                         uuid:
                           type: string
                           format: uuid
+                        user:
+                          type: string
+                          readOnly: true
                         likes:
                           type: array
                           items:
@@ -544,67 +547,6 @@ paths:
                         modified:
                           type: string
                           format: date-time
-                          readOnly: true
-                        user:
-                          properties:
-                            id:
-                              type: string
-                              format: uuid
-                            password:
-                              type: string
-                              maxLength: 128
-                            last_login:
-                              type: string
-                              format: date-time
-                              nullable: true
-                            is_superuser:
-                              type: boolean
-                              description: Designates that this user has all permissions
-                                without explicitly assigning them.
-                            username:
-                              type: string
-                              maxLength: 10
-                            email:
-                              type: string
-                              format: email
-                              maxLength: 254
-                            fullname:
-                              type: string
-                              maxLength: 100
-                            picture:
-                              type: string
-                              format: binary
-                              nullable: true
-                            address:
-                              type: string
-                            phone_number:
-                              type: string
-                              maxLength: 20
-                            date_joined:
-                              type: string
-                              format: date-time
-                              readOnly: true
-                            is_staff:
-                              type: boolean
-                            is_active:
-                              type: boolean
-                            groups:
-                              type: array
-                              items:
-                                type: integer
-                              description: The groups this user belongs to. A user
-                                will get all permissions granted to each of their
-                                groups.
-                            user_permissions:
-                              type: array
-                              items:
-                                type: integer
-                              description: Specific permissions for this user.
-                          required:
-                          - password
-                          - username
-                          - email
-                          type: object
                           readOnly: true
                       required:
                       - description
@@ -643,6 +585,9 @@ paths:
                   uuid:
                     type: string
                     format: uuid
+                  user:
+                    type: string
+                    readOnly: true
                   likes:
                     type: array
                     items:
@@ -667,66 +612,6 @@ paths:
                   modified:
                     type: string
                     format: date-time
-                    readOnly: true
-                  user:
-                    properties:
-                      id:
-                        type: string
-                        format: uuid
-                      password:
-                        type: string
-                        maxLength: 128
-                      last_login:
-                        type: string
-                        format: date-time
-                        nullable: true
-                      is_superuser:
-                        type: boolean
-                        description: Designates that this user has all permissions
-                          without explicitly assigning them.
-                      username:
-                        type: string
-                        maxLength: 10
-                      email:
-                        type: string
-                        format: email
-                        maxLength: 254
-                      fullname:
-                        type: string
-                        maxLength: 100
-                      picture:
-                        type: string
-                        format: binary
-                        nullable: true
-                      address:
-                        type: string
-                      phone_number:
-                        type: string
-                        maxLength: 20
-                      date_joined:
-                        type: string
-                        format: date-time
-                        readOnly: true
-                      is_staff:
-                        type: boolean
-                      is_active:
-                        type: boolean
-                      groups:
-                        type: array
-                        items:
-                          type: integer
-                        description: The groups this user belongs to. A user will
-                          get all permissions granted to each of their groups.
-                      user_permissions:
-                        type: array
-                        items:
-                          type: integer
-                        description: Specific permissions for this user.
-                    required:
-                    - password
-                    - username
-                    - email
-                    type: object
                     readOnly: true
                 required:
                 - description
@@ -763,6 +648,9 @@ paths:
                   uuid:
                     type: string
                     format: uuid
+                  user:
+                    type: string
+                    readOnly: true
                   likes:
                     type: array
                     items:
@@ -787,66 +675,6 @@ paths:
                   modified:
                     type: string
                     format: date-time
-                    readOnly: true
-                  user:
-                    properties:
-                      id:
-                        type: string
-                        format: uuid
-                      password:
-                        type: string
-                        maxLength: 128
-                      last_login:
-                        type: string
-                        format: date-time
-                        nullable: true
-                      is_superuser:
-                        type: boolean
-                        description: Designates that this user has all permissions
-                          without explicitly assigning them.
-                      username:
-                        type: string
-                        maxLength: 10
-                      email:
-                        type: string
-                        format: email
-                        maxLength: 254
-                      fullname:
-                        type: string
-                        maxLength: 100
-                      picture:
-                        type: string
-                        format: binary
-                        nullable: true
-                      address:
-                        type: string
-                      phone_number:
-                        type: string
-                        maxLength: 20
-                      date_joined:
-                        type: string
-                        format: date-time
-                        readOnly: true
-                      is_staff:
-                        type: boolean
-                      is_active:
-                        type: boolean
-                      groups:
-                        type: array
-                        items:
-                          type: integer
-                        description: The groups this user belongs to. A user will
-                          get all permissions granted to each of their groups.
-                      user_permissions:
-                        type: array
-                        items:
-                          type: integer
-                        description: Specific permissions for this user.
-                    required:
-                    - password
-                    - username
-                    - email
-                    type: object
                     readOnly: true
                 required:
                 - description
@@ -903,6 +731,9 @@ paths:
                   uuid:
                     type: string
                     format: uuid
+                  user:
+                    type: string
+                    readOnly: true
                   likes:
                     type: array
                     items:
@@ -927,66 +758,6 @@ paths:
                   modified:
                     type: string
                     format: date-time
-                    readOnly: true
-                  user:
-                    properties:
-                      id:
-                        type: string
-                        format: uuid
-                      password:
-                        type: string
-                        maxLength: 128
-                      last_login:
-                        type: string
-                        format: date-time
-                        nullable: true
-                      is_superuser:
-                        type: boolean
-                        description: Designates that this user has all permissions
-                          without explicitly assigning them.
-                      username:
-                        type: string
-                        maxLength: 10
-                      email:
-                        type: string
-                        format: email
-                        maxLength: 254
-                      fullname:
-                        type: string
-                        maxLength: 100
-                      picture:
-                        type: string
-                        format: binary
-                        nullable: true
-                      address:
-                        type: string
-                      phone_number:
-                        type: string
-                        maxLength: 20
-                      date_joined:
-                        type: string
-                        format: date-time
-                        readOnly: true
-                      is_staff:
-                        type: boolean
-                      is_active:
-                        type: boolean
-                      groups:
-                        type: array
-                        items:
-                          type: integer
-                        description: The groups this user belongs to. A user will
-                          get all permissions granted to each of their groups.
-                      user_permissions:
-                        type: array
-                        items:
-                          type: integer
-                        description: Specific permissions for this user.
-                    required:
-                    - password
-                    - username
-                    - email
-                    type: object
                     readOnly: true
                 required:
                 - description
@@ -1041,6 +812,9 @@ paths:
                   uuid:
                     type: string
                     format: uuid
+                  user:
+                    type: string
+                    readOnly: true
                   likes:
                     type: array
                     items:
@@ -1065,66 +839,6 @@ paths:
                   modified:
                     type: string
                     format: date-time
-                    readOnly: true
-                  user:
-                    properties:
-                      id:
-                        type: string
-                        format: uuid
-                      password:
-                        type: string
-                        maxLength: 128
-                      last_login:
-                        type: string
-                        format: date-time
-                        nullable: true
-                      is_superuser:
-                        type: boolean
-                        description: Designates that this user has all permissions
-                          without explicitly assigning them.
-                      username:
-                        type: string
-                        maxLength: 10
-                      email:
-                        type: string
-                        format: email
-                        maxLength: 254
-                      fullname:
-                        type: string
-                        maxLength: 100
-                      picture:
-                        type: string
-                        format: binary
-                        nullable: true
-                      address:
-                        type: string
-                      phone_number:
-                        type: string
-                        maxLength: 20
-                      date_joined:
-                        type: string
-                        format: date-time
-                        readOnly: true
-                      is_staff:
-                        type: boolean
-                      is_active:
-                        type: boolean
-                      groups:
-                        type: array
-                        items:
-                          type: integer
-                        description: The groups this user belongs to. A user will
-                          get all permissions granted to each of their groups.
-                      user_permissions:
-                        type: array
-                        items:
-                          type: integer
-                        description: Specific permissions for this user.
-                    required:
-                    - password
-                    - username
-                    - email
-                    type: object
                     readOnly: true
                 required:
                 - description
@@ -1174,6 +888,9 @@ paths:
                   uuid:
                     type: string
                     format: uuid
+                  user:
+                    type: string
+                    readOnly: true
                   likes:
                     type: array
                     items:
@@ -1198,66 +915,6 @@ paths:
                   modified:
                     type: string
                     format: date-time
-                    readOnly: true
-                  user:
-                    properties:
-                      id:
-                        type: string
-                        format: uuid
-                      password:
-                        type: string
-                        maxLength: 128
-                      last_login:
-                        type: string
-                        format: date-time
-                        nullable: true
-                      is_superuser:
-                        type: boolean
-                        description: Designates that this user has all permissions
-                          without explicitly assigning them.
-                      username:
-                        type: string
-                        maxLength: 10
-                      email:
-                        type: string
-                        format: email
-                        maxLength: 254
-                      fullname:
-                        type: string
-                        maxLength: 100
-                      picture:
-                        type: string
-                        format: binary
-                        nullable: true
-                      address:
-                        type: string
-                      phone_number:
-                        type: string
-                        maxLength: 20
-                      date_joined:
-                        type: string
-                        format: date-time
-                        readOnly: true
-                      is_staff:
-                        type: boolean
-                      is_active:
-                        type: boolean
-                      groups:
-                        type: array
-                        items:
-                          type: integer
-                        description: The groups this user belongs to. A user will
-                          get all permissions granted to each of their groups.
-                      user_permissions:
-                        type: array
-                        items:
-                          type: integer
-                        description: Specific permissions for this user.
-                    required:
-                    - password
-                    - username
-                    - email
-                    type: object
                     readOnly: true
                 required:
                 - description
@@ -1314,6 +971,9 @@ paths:
                         uuid:
                           type: string
                           format: uuid
+                        user:
+                          type: string
+                          readOnly: true
                         message:
                           type: string
                           maxLength: 255
@@ -1324,67 +984,6 @@ paths:
                         modified:
                           type: string
                           format: date-time
-                          readOnly: true
-                        user:
-                          properties:
-                            id:
-                              type: string
-                              format: uuid
-                            password:
-                              type: string
-                              maxLength: 128
-                            last_login:
-                              type: string
-                              format: date-time
-                              nullable: true
-                            is_superuser:
-                              type: boolean
-                              description: Designates that this user has all permissions
-                                without explicitly assigning them.
-                            username:
-                              type: string
-                              maxLength: 10
-                            email:
-                              type: string
-                              format: email
-                              maxLength: 254
-                            fullname:
-                              type: string
-                              maxLength: 100
-                            picture:
-                              type: string
-                              format: binary
-                              nullable: true
-                            address:
-                              type: string
-                            phone_number:
-                              type: string
-                              maxLength: 20
-                            date_joined:
-                              type: string
-                              format: date-time
-                              readOnly: true
-                            is_staff:
-                              type: boolean
-                            is_active:
-                              type: boolean
-                            groups:
-                              type: array
-                              items:
-                                type: integer
-                              description: The groups this user belongs to. A user
-                                will get all permissions granted to each of their
-                                groups.
-                            user_permissions:
-                              type: array
-                              items:
-                                type: integer
-                              description: Specific permissions for this user.
-                          required:
-                          - password
-                          - username
-                          - email
-                          type: object
                           readOnly: true
                         post:
                           properties:
@@ -1442,6 +1041,9 @@ paths:
                   uuid:
                     type: string
                     format: uuid
+                  user:
+                    type: string
+                    readOnly: true
                   message:
                     type: string
                     maxLength: 255
@@ -1452,66 +1054,6 @@ paths:
                   modified:
                     type: string
                     format: date-time
-                    readOnly: true
-                  user:
-                    properties:
-                      id:
-                        type: string
-                        format: uuid
-                      password:
-                        type: string
-                        maxLength: 128
-                      last_login:
-                        type: string
-                        format: date-time
-                        nullable: true
-                      is_superuser:
-                        type: boolean
-                        description: Designates that this user has all permissions
-                          without explicitly assigning them.
-                      username:
-                        type: string
-                        maxLength: 10
-                      email:
-                        type: string
-                        format: email
-                        maxLength: 254
-                      fullname:
-                        type: string
-                        maxLength: 100
-                      picture:
-                        type: string
-                        format: binary
-                        nullable: true
-                      address:
-                        type: string
-                      phone_number:
-                        type: string
-                        maxLength: 20
-                      date_joined:
-                        type: string
-                        format: date-time
-                        readOnly: true
-                      is_staff:
-                        type: boolean
-                      is_active:
-                        type: boolean
-                      groups:
-                        type: array
-                        items:
-                          type: integer
-                        description: The groups this user belongs to. A user will
-                          get all permissions granted to each of their groups.
-                      user_permissions:
-                        type: array
-                        items:
-                          type: integer
-                        description: Specific permissions for this user.
-                    required:
-                    - password
-                    - username
-                    - email
-                    type: object
                     readOnly: true
                   post:
                     properties:
@@ -1573,6 +1115,9 @@ paths:
                   uuid:
                     type: string
                     format: uuid
+                  user:
+                    type: string
+                    readOnly: true
                   message:
                     type: string
                     maxLength: 255
@@ -1583,66 +1128,6 @@ paths:
                   modified:
                     type: string
                     format: date-time
-                    readOnly: true
-                  user:
-                    properties:
-                      id:
-                        type: string
-                        format: uuid
-                      password:
-                        type: string
-                        maxLength: 128
-                      last_login:
-                        type: string
-                        format: date-time
-                        nullable: true
-                      is_superuser:
-                        type: boolean
-                        description: Designates that this user has all permissions
-                          without explicitly assigning them.
-                      username:
-                        type: string
-                        maxLength: 10
-                      email:
-                        type: string
-                        format: email
-                        maxLength: 254
-                      fullname:
-                        type: string
-                        maxLength: 100
-                      picture:
-                        type: string
-                        format: binary
-                        nullable: true
-                      address:
-                        type: string
-                      phone_number:
-                        type: string
-                        maxLength: 20
-                      date_joined:
-                        type: string
-                        format: date-time
-                        readOnly: true
-                      is_staff:
-                        type: boolean
-                      is_active:
-                        type: boolean
-                      groups:
-                        type: array
-                        items:
-                          type: integer
-                        description: The groups this user belongs to. A user will
-                          get all permissions granted to each of their groups.
-                      user_permissions:
-                        type: array
-                        items:
-                          type: integer
-                        description: Specific permissions for this user.
-                    required:
-                    - password
-                    - username
-                    - email
-                    type: object
                     readOnly: true
                   post:
                     properties:
@@ -1718,6 +1203,9 @@ paths:
                   uuid:
                     type: string
                     format: uuid
+                  user:
+                    type: string
+                    readOnly: true
                   message:
                     type: string
                     maxLength: 255
@@ -1728,66 +1216,6 @@ paths:
                   modified:
                     type: string
                     format: date-time
-                    readOnly: true
-                  user:
-                    properties:
-                      id:
-                        type: string
-                        format: uuid
-                      password:
-                        type: string
-                        maxLength: 128
-                      last_login:
-                        type: string
-                        format: date-time
-                        nullable: true
-                      is_superuser:
-                        type: boolean
-                        description: Designates that this user has all permissions
-                          without explicitly assigning them.
-                      username:
-                        type: string
-                        maxLength: 10
-                      email:
-                        type: string
-                        format: email
-                        maxLength: 254
-                      fullname:
-                        type: string
-                        maxLength: 100
-                      picture:
-                        type: string
-                        format: binary
-                        nullable: true
-                      address:
-                        type: string
-                      phone_number:
-                        type: string
-                        maxLength: 20
-                      date_joined:
-                        type: string
-                        format: date-time
-                        readOnly: true
-                      is_staff:
-                        type: boolean
-                      is_active:
-                        type: boolean
-                      groups:
-                        type: array
-                        items:
-                          type: integer
-                        description: The groups this user belongs to. A user will
-                          get all permissions granted to each of their groups.
-                      user_permissions:
-                        type: array
-                        items:
-                          type: integer
-                        description: Specific permissions for this user.
-                    required:
-                    - password
-                    - username
-                    - email
-                    type: object
                     readOnly: true
                   post:
                     properties:
@@ -1863,6 +1291,9 @@ paths:
                   uuid:
                     type: string
                     format: uuid
+                  user:
+                    type: string
+                    readOnly: true
                   message:
                     type: string
                     maxLength: 255
@@ -1873,66 +1304,6 @@ paths:
                   modified:
                     type: string
                     format: date-time
-                    readOnly: true
-                  user:
-                    properties:
-                      id:
-                        type: string
-                        format: uuid
-                      password:
-                        type: string
-                        maxLength: 128
-                      last_login:
-                        type: string
-                        format: date-time
-                        nullable: true
-                      is_superuser:
-                        type: boolean
-                        description: Designates that this user has all permissions
-                          without explicitly assigning them.
-                      username:
-                        type: string
-                        maxLength: 10
-                      email:
-                        type: string
-                        format: email
-                        maxLength: 254
-                      fullname:
-                        type: string
-                        maxLength: 100
-                      picture:
-                        type: string
-                        format: binary
-                        nullable: true
-                      address:
-                        type: string
-                      phone_number:
-                        type: string
-                        maxLength: 20
-                      date_joined:
-                        type: string
-                        format: date-time
-                        readOnly: true
-                      is_staff:
-                        type: boolean
-                      is_active:
-                        type: boolean
-                      groups:
-                        type: array
-                        items:
-                          type: integer
-                        description: The groups this user belongs to. A user will
-                          get all permissions granted to each of their groups.
-                      user_permissions:
-                        type: array
-                        items:
-                          type: integer
-                        description: Specific permissions for this user.
-                    required:
-                    - password
-                    - username
-                    - email
-                    type: object
                     readOnly: true
                   post:
                     properties:
@@ -2748,6 +2119,9 @@ paths:
                   uuid:
                     type: string
                     format: uuid
+                  user:
+                    type: string
+                    readOnly: true
                   likes:
                     type: array
                     items:
@@ -2773,66 +2147,84 @@ paths:
                     type: string
                     format: date-time
                     readOnly: true
-                  user:
-                    properties:
-                      id:
-                        type: string
-                        format: uuid
-                      password:
-                        type: string
-                        maxLength: 128
-                      last_login:
-                        type: string
-                        format: date-time
-                        nullable: true
-                      is_superuser:
-                        type: boolean
-                        description: Designates that this user has all permissions
-                          without explicitly assigning them.
-                      username:
-                        type: string
-                        maxLength: 10
-                      email:
-                        type: string
-                        format: email
-                        maxLength: 254
-                      fullname:
-                        type: string
-                        maxLength: 100
-                      picture:
-                        type: string
-                        format: binary
-                        nullable: true
-                      address:
-                        type: string
-                      phone_number:
-                        type: string
-                        maxLength: 20
-                      date_joined:
-                        type: string
-                        format: date-time
-                        readOnly: true
-                      is_staff:
-                        type: boolean
-                      is_active:
-                        type: boolean
-                      groups:
-                        type: array
-                        items:
-                          type: integer
-                        description: The groups this user belongs to. A user will
-                          get all permissions granted to each of their groups.
-                      user_permissions:
-                        type: array
-                        items:
-                          type: integer
-                        description: Specific permissions for this user.
-                    required:
-                    - password
-                    - username
-                    - email
-                    type: object
-                    readOnly: true
                 required:
                 - description
+          description: ''
+  /api/v1/users/{id}/picture:
+    patch:
+      operationId: pictureUser
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A UUID string identifying this user.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id026
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                username:
+                  type: string
+                  maxLength: 10
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                fullname:
+                  type: string
+                  maxLength: 100
+                picture:
+                  type: string
+                  format: binary
+                  nullable: true
+                address:
+                  type: string
+                phone_number:
+                  type: string
+                  maxLength: 20
+          application/x-www-form-urlencoded:
+            schema: *id026
+          multipart/form-data:
+            schema: *id026
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  username:
+                    type: string
+                    maxLength: 10
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  fullname:
+                    type: string
+                    maxLength: 100
+                  picture:
+                    type: string
+                    format: binary
+                    nullable: true
+                  address:
+                    type: string
+                  phone_number:
+                    type: string
+                    maxLength: 20
+                  date_joined:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                required:
+                - username
+                - email
           description: ''
