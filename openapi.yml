@@ -1,7 +1,7 @@
 openapi: 3.0.2
 info:
-  title: ''
-  version: ''
+  title: 'Petgram OpenAPI'
+  version: '1.0.0'
 paths:
   /api/v1/users:
     get:
